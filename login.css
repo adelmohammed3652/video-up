@@ -1,0 +1,24 @@
+.btn{
+    background: #000000;
+    color: aliceblue;
+    width: 10rem;
+    height: 2rem;
+    margin-left: 2rem;
+}
+a{
+    color: antiquewhite;
+    text-decoration: none;
+}
+.Q{
+    margin-left: 25rem;
+    margin-top: 2rem;
+}
+.H{
+    margin-left: 33.5rem;
+    margin-top: 3rem;
+}
+body {
+    transition: background-color 0.3s ease;
+    background: #b9b9b9;
+    
+}

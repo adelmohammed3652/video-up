@@ -1,0 +1,31 @@
+<style>
+    body{
+        background: #05e4b4c4;
+    }
+</style>
+
+<div id="video-list"></div>
+
+<script>
+  function displayVideos() {
+    const videoList = document.getElementById('video-list');
+
+    // Retrieve videos from localStorage
+    const videos = JSON.parse(localStorage.getItem('videos')) || [];
+
+    videoList.innerHTML = '';
+
+    videos.forEach((video) => {
+      const videoItem = document.createElement('div');
+      videoItem.innerHTML = `
+        <h3>${video.title}</h3>
+        <p><a href="${video.link}" target="_blank">${video.link}</a></p>
+      `;
+
+      videoList.appendChild(videoItem);
+    });
+  }
+
+  // Initial display of videos
+  displayVideos();
+</script>

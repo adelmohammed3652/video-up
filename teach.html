@@ -1,0 +1,203 @@
+
+<style>
+    #title{
+        margin-left: 2rem;
+        height: 2rem;
+        width: 15rem;
+        margin-top: 3rem;
+
+    }
+    #link{
+        margin-left: 2rem;
+        height: 2rem;
+        width: 15rem;
+        margin-top: 3rem;
+
+    }
+    #sub{
+        margin-left: 2rem;
+        height: 2rem;
+        width: 15rem;
+        margin-top: 3rem;
+        background: #acaeaf;
+    }
+    a{
+        color: black;
+    }
+    body{
+        background: #99ccff;
+    }
+</style>
+<h2><a href="login.html">logout</a></h2>
+<form id="video-form">
+    <input placeholder="title" type="text" id="title" required>
+    <input placeholder="link" type="text" id="link" required>
+    <button id="sub" type="submit">Add Video</button>
+  </form>
+
+  <style>
+    #video-table{margin-left: 2rem;
+    gap: 3rem;
+    margin-top: 3rem;    
+}
+
+
+
+  </style>
+<style>
+    #video-table th,
+    #video-table td {
+      padding: 3rem;
+    }
+  </style>
+  
+  <table id="video-table">
+    <thead>
+      <tr>
+        <th id="tit">Title</th>
+        <th id="li">Link</th>
+        <th id="ac">Actions</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  
+
+  <script>
+    // Function to add a new video row to the table
+    function addVideoRow(video) {
+      const tableBody = document.querySelector('#video-table tbody');
+
+      const row = document.createElement('tr');
+      row.setAttribute('data-id', video.id);
+
+      const titleCell = document.createElement('td');
+      titleCell.textContent = video.title;
+      row.appendChild(titleCell);
+
+      const linkCell = document.createElement('td');
+      linkCell.innerHTML = `<a href="${video.link}" target="_blank">${video.link}</a>`;
+      row.appendChild(linkCell);
+
+      const actionsCell = document.createElement('td');
+      const editButton = document.createElement('button');
+      editButton.textContent = 'Edit';
+      editButton.addEventListener('click', () => editVideo(video.id));
+      actionsCell.appendChild(editButton);
+
+      const deleteButton = document.createElement('button');
+      deleteButton.textContent = 'Delete';
+      deleteButton.addEventListener('click', () => deleteVideo(video.id));
+      actionsCell.appendChild(deleteButton);
+
+      row.appendChild(actionsCell);
+
+      tableBody.appendChild(row);
+    }
+
+    // Function to display the videos in the table
+    function displayVideos() {
+      const tableBody = document.querySelector('#video-table tbody');
+      tableBody.innerHTML = '';
+
+      // Retrieve videos from localStorage
+      const videos = JSON.parse(localStorage.getItem('videos')) || [];
+
+      videos.forEach((video) => {
+        addVideoRow(video);
+      });
+    }
+
+    // Function to add a new video
+    function addVideo(event) {
+      event.preventDefault();
+
+      const titleInput = document.getElementById('title');
+      const linkInput = document.getElementById('link');
+
+      const title = titleInput.value.trim();
+      const link = linkInput.value.trim();
+
+      if (title !== '' && link !== '') {
+        const video = {
+          id: Date.now().toString(),
+          title: title,
+          link: link
+        };
+
+        // Retrieve existing videos from localStorage
+        const videos = JSON.parse(localStorage.getItem('videos')) || [];
+
+        // Add the new video to the videos array
+        videos.push(video);
+
+        // Save the updated videos array in localStorage
+        localStorage.setItem('videos', JSON.stringify(videos));
+
+        // Clear the input fields
+        titleInput.value = '';
+        linkInput.value = '';
+
+        addVideoRow(video);
+
+        alert('Video added successfully!');
+      } else {
+        alert('Please enter both title and link.');
+      }
+    }
+
+    // Function to edit a video
+    function editVideo(videoId) {
+      const newTitle = prompt('Enter the new title:');
+      const newLink = prompt('Enter the new link:');
+
+      if (newTitle !== null && newLink !== null) {
+        // Retrieve existing videos from localStorage
+        const videos = JSON.parse(localStorage.getItem('videos')) || [];
+
+        // Find the video with the given ID
+        const video = videos.find((v) => v.id === videoId);
+
+        if (video) {
+          video.title = newTitle.trim();
+          video.link = newLink.trim();
+
+          // Save the updated videos array in localStorage
+          localStorage.setItem('videos', JSON.stringify(videos));
+
+          // Refresh the table
+          displayVideos();
+
+          alert('Video updated successfully!');
+        } else {
+          alert('Video not found.');
+        }
+      }
+    }
+
+    // Function to delete a video
+    function deleteVideo(videoId) {
+      if (confirm('Are you sure you want to delete this video?')) {
+        // Retrieve existing videos from localStorage
+        let videos = JSON.parse(localStorage.getItem('videos')) || [];
+
+        // Filter out the video with the given ID
+        videos = videos.filter((video) => video.id !== videoId);
+
+        // Save the updated videos array in localStorage
+        localStorage.setItem('videos', JSON.stringify(videos));
+
+        // Refresh the table
+        displayVideos();
+
+        alert('Video deleted successfully!');
+      }
+    }
+
+    // Add event listener to the video form submit event
+    const videoForm = document.getElementById('video-form');
+    videoForm.addEventListener('submit', addVideo);
+
+    // Initial display of videos
+    displayVideos();
+  </script>

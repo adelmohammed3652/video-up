@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="login.css">
+
+    <title>login</title>
+</head>
+<body>
+    <h2 class="H">what are you</h2>
+    <div class="Q">
+        <button class="btn" id="teach"><a href="videos.html">I am a student</a></button>
+        <button class="btn" id="st"><a href="teach-pass.html">I am a teacher</a></button>
+    </div>
+
+    <script>
+        document.getElementById("teach").addEventListener("mouseover", function() {
+            document.body.style.backgroundColor = "#05e4b4c4"; /* Change this to the desired color */
+        });
+
+        document.getElementById("st").addEventListener("mouseover", function() {
+            document.body.style.backgroundColor = "#99ccff"; /* Change this to the desired color */
+        });
+    </script>
+</body>
+</html>

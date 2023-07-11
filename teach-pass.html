@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pass</title>
+</head>
+<style>
+    #pass {
+        margin-left: 29rem;
+        margin-top: 3rem;
+        width: 15rem;
+        height: 3rem;
+    }
+
+    .H {
+        margin-left: 30.5rem;
+        margin-top: 3rem;
+    }
+    body{
+        background: #99ccff;
+    }
+</style>
+<body>
+    <h2 class="H">Enter the password:</h2>
+    <input id="pass" type="text" placeholder="Enter the passcode">
+
+    <script>
+        document.getElementById("pass").addEventListener("input", function() {
+            var inputText = document.getElementById("pass").value;
+            if (inputText === "zamnet365") {
+                window.location.href = "teach.html"; // Replace "new-page.html" with the desired page URL
+            }
+        });
+    </script>
+</body>
+</html>
